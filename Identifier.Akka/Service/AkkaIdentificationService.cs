@@ -20,18 +20,18 @@ namespace Identifier.Akka.Service
 
         public AkkaIdentificationService(IdentifierSettings settings, IImageIdentifier imageIdentifier)
         {
-            Log.Info("Creating actor system");
             _actorSystem = ActorSystem.Create("IdentificationSystem");
+            Log.Info("Created actor system");
             _resultsProcessorActor = _actorSystem.ActorOf<ResultProcessorActor>("ResultProcessor");
             _queueManagerActor = _actorSystem.ActorOf<QueueManagerActor>("QueueManager");
             _identifiers = new List<IActorRef>();
-            Log.InfoFormat("Creating {0} IdentifyActors", settings.NumThreads);
             for (var i = 0; i < settings.NumThreads; ++i)
             {
                 var identifier = _actorSystem.ActorOf<IdentifyActor>(string.Format("Identifier_{0}", i));
                 _identifiers.Add(identifier);
                 identifier.Tell(imageIdentifier);
             }
+            Log.InfoFormat("Created {0} IdentifyActors", settings.NumThreads);
         }
 
         public void Identify(TrackedObject trackedObject)
@@ -41,7 +41,7 @@ namespace Identifier.Akka.Service
 
         public void Dispose()
         {
-            Log.Info("Dispose");
+            Log.Info("Dispose - stopping actors");
             // stop actors
             foreach (var identifier in _identifiers)
             {

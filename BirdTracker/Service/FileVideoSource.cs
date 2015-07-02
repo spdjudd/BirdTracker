@@ -90,7 +90,7 @@ namespace BirdTracker.Service
                 }
                 else
                 {
-                    Log.WarnFormat("Slow frame rate - missed by {0}ms", -timeToNextFrame.TotalMilliseconds);
+                    Log.WarnFormat("Slow frame rate - missed by {0:N0}ms", -timeToNextFrame.TotalMilliseconds);
                 }
             }
             else

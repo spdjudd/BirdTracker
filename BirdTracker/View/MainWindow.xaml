@@ -13,6 +13,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <GroupBox Grid.Row="0" Grid.Column="0" Header="Video">
             <Grid>
@@ -32,15 +33,6 @@
                     <Button Command="{Binding StopCommand}" >Stop</Button>
                     <Button Command="{Binding FrameCommand}">Frame</Button>
                     <Button Command="{Binding ResetCommand}">Reset</Button>
-                    <Label VerticalContentAlignment="Center">Frame headroom (ms): </Label>
-                    <TextBox
-                        Text="{Binding Model.VideoSource.FrameHeadroomMs, StringFormat='f0', Mode=OneWay}"
-                        Background="{Binding Model.VideoSource.FrameHeadroomMs, Converter={StaticResource SignedValueBrushConverter}}"
-                        Width="30"
-                        Margin="5"
-                        BorderThickness="0"
-                        IsReadOnly="True"
-                        HorizontalContentAlignment="Right"/>
                 </StackPanel>
             </Grid>
         </GroupBox>
@@ -98,7 +90,7 @@
                 <Label Grid.Row="3" Grid.Column="0">Video file path</Label>
                 <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Model.Profile.FilePath}"/>
                 <Label Grid.Row="4" Grid.Column="0">Frame interval(ms)</Label>
-                <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Model.Profile.FrameSpacingMs}"/>
+                <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Model.Profile.FrameSpacingMs}" HorizontalContentAlignment="Right"/>
 
                 <Label Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" FontWeight="Bold">ID SERVICE</Label>
                 <Label Grid.Row="7" Grid.Column="0">Identifier Type</Label>
@@ -108,27 +100,27 @@
                 <Label Grid.Row="9" Grid.Column="0">Service URL</Label>
                 <TextBox Grid.Row="9" Grid.Column="1" Text="{Binding Model.Profile.IdentifierSettings.IdentifierUrl}"/>
                 <Label Grid.Row="10" Grid.Column="0">Threads</Label>
-                <TextBox Grid.Row="10" Grid.Column="1" Text="{Binding Model.Profile.IdentifierSettings.NumThreads}"/>
+                <TextBox Grid.Row="10" Grid.Column="1" Text="{Binding Model.Profile.IdentifierSettings.NumThreads}" HorizontalContentAlignment="Right"/>
                 <Label Grid.Row="11" Grid.Column="0">Image size</Label>
-                <TextBox Grid.Row="11" Grid.Column="1" Text="{Binding Model.Profile.IdentifierSettings.IdentifierImageSize}"/>
+                <TextBox Grid.Row="11" Grid.Column="1" Text="{Binding Model.Profile.IdentifierSettings.IdentifierImageSize}" HorizontalContentAlignment="Right"/>
 
                 <Label Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" FontWeight="Bold">TRACKER</Label>
                 <Label Grid.Row="1" Grid.Column="2">Distance threshold</Label>
-                <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding Model.Profile.TrackerSettings.DistanceThreshold.Value}"/>
+                <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding Model.Profile.TrackerSettings.DistanceThreshold.Value}" HorizontalContentAlignment="Right"/>
                 <Label Grid.Row="2" Grid.Column="2">Max inactive frames</Label>
-                <TextBox Grid.Row="2" Grid.Column="3" Text="{Binding Model.Profile.TrackerSettings.MaxInactiveFrames.Value}"/>
+                <TextBox Grid.Row="2" Grid.Column="3" Text="{Binding Model.Profile.TrackerSettings.MaxInactiveFrames.Value}" HorizontalContentAlignment="Right"/>
                 <Label Grid.Row="3" Grid.Column="2">Activity threshold</Label>
-                <TextBox Grid.Row="3" Grid.Column="3" Text="{Binding Model.Profile.TrackerSettings.ActivityThreshold.Value}"/>
+                <TextBox Grid.Row="3" Grid.Column="3" Text="{Binding Model.Profile.TrackerSettings.ActivityThreshold.Value}" HorizontalContentAlignment="Right"/>
                 <Label Grid.Row="4" Grid.Column="2">Min frames to start id</Label>
-                <TextBox Grid.Row="4" Grid.Column="3" Text="{Binding Model.Profile.TrackerSettings.MinFramesToStartIdentifying.Value}"/>
+                <TextBox Grid.Row="4" Grid.Column="3" Text="{Binding Model.Profile.TrackerSettings.MinFramesToStartIdentifying.Value}" HorizontalContentAlignment="Right"/>
                 <Label Grid.Row="5" Grid.Column="2">Min size to id</Label>
-                <TextBox Grid.Row="5" Grid.Column="3" Text="{Binding Model.Profile.TrackerSettings.MinSizeToIdentify.Value}"/>
+                <TextBox Grid.Row="5" Grid.Column="3" Text="{Binding Model.Profile.TrackerSettings.MinSizeToIdentify.Value}" HorizontalContentAlignment="Right"/>
                 <Label Grid.Row="6" Grid.Column="2">Sub-image multipier</Label>
-                <TextBox Grid.Row="6" Grid.Column="3" Text="{Binding Model.Profile.TrackerSettings.SubImageMultiplier.Value}"/>
-                <Label Grid.Row="7" Grid.Column="2">Background sub hist</Label>
-                <TextBox Grid.Row="7" Grid.Column="3" Text="{Binding Model.Profile.TrackerSettings.BackgroundSubtractorHistory.Value}"/>
-                <Label Grid.Row="8" Grid.Column="2">Background sub max comps</Label>
-                <TextBox Grid.Row="8" Grid.Column="3" Text="{Binding Model.Profile.TrackerSettings.BackgroundSubtractorMaxComponents.Value}"/>
+                <TextBox Grid.Row="6" Grid.Column="3" Text="{Binding Model.Profile.TrackerSettings.SubImageMultiplier.Value}" HorizontalContentAlignment="Right"/>
+                <Label Grid.Row="7" Grid.Column="2">Background subtractor history</Label>
+                <TextBox Grid.Row="7" Grid.Column="3" Text="{Binding Model.Profile.TrackerSettings.BackgroundSubtractorHistory.Value}" HorizontalContentAlignment="Right"/>
+                <Label Grid.Row="8" Grid.Column="2">Background subtractor max comps</Label>
+                <TextBox Grid.Row="8" Grid.Column="3" Text="{Binding Model.Profile.TrackerSettings.BackgroundSubtractorMaxComponents.Value}" HorizontalContentAlignment="Right"/>
                 
                 <StackPanel Grid.Row="10" Grid.RowSpan="2" Grid.Column="2" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2 5">
                     <Button Command="{Binding OpenCommand}">Open</Button>
@@ -137,5 +129,22 @@
                 </StackPanel>
             </Grid>
         </GroupBox>
+        <StatusBar Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4">
+            <StatusBarItem>
+                <Label VerticalContentAlignment="Center">Frame headroom (ms):</Label>
+            </StatusBarItem>
+            <StatusBarItem>
+                <TextBlock
+                    Text="{Binding Model.VideoSource.FrameHeadroomMs, StringFormat='f0', Mode=OneWay}"
+                    Background="{Binding Model.VideoSource.FrameHeadroomMs, Converter={StaticResource SignedValueBrushConverter}}"
+                    Width="30"
+                    TextAlignment="Right"
+                    Margin="5"/>
+            </StatusBarItem>
+            <Separator/>
+            <StatusBarItem>
+                <TextBlock Text="{Binding LogAppender.Message}" Foreground="{Binding LogAppender.Level, Converter={StaticResource ErrorLevelToBrushConverter}}"/>
+            </StatusBarItem>
+        </StatusBar>
     </Grid>
 </controls:MetroWindow>
